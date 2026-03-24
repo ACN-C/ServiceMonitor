@@ -1,0 +1,21 @@
+<Project>
+	<PropertyGroup>
+		<!-- Set common publish directory -->
+		<PublishDir>$(SolutionDir)publish\$(Configuration)\</PublishDir>
+		<!-- Optional: Also set the build output path for consistency -->
+		<OutputPath>$(PublishDir)</OutputPath>
+		<!-- Disable TFM and RID in both build and publish paths -->
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+	<!-- Your existing TargetFramework definitions -->
+	<PropertyGroup>
+		<TargetFramework>net10.0-windows</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+</Project>

@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".github/workflows/publish.yaml" />
+  </Folder>
+  <Project Path="ServiceMonitor.ControlPanel/ServiceMonitor.ControlPanel.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="ServiceMonitor.Service/ServiceMonitor.Service.csproj" />
+  <Project Path="ServiceMonitor.Shared/ServiceMonitor.Shared.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>

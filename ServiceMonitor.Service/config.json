@@ -1,0 +1,10 @@
+{
+  "HttpPort": 8080,
+  "Services": [
+    { "ServiceName": "Spooler" },
+    { "ServiceName": "W32Time" },
+    { "ServiceName": "Dnscache" }
+  ],
+  "ProductName": "Service Monitor",
+  "LogoPath": "branding/logo.png"
+}
