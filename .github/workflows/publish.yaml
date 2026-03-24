@@ -1,35 +1,49 @@
 name: Build, Test and Publish C# Solution
+
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   
+
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      configuration:
+        description: 'Build configuration'
+        required: true
+        default: 'Release'
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
 
+      # 🔥 Cache NuGet packages (huge speed improvement)
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Restore dependencies
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build --no-restore --configuration ${{ github.event.inputs.configuration }}
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal   
-        
+        run: dotnet test --no-build --configuration ${{ github.event.inputs.configuration }} --verbosity normal
+
       - name: Publish
-        run: dotnet publish -c Release -r win-x64 --self-contained true -p:PublishDir=./publish    
+        run: dotnet publish -c ${{ github.event.inputs.configuration }} -r win-x64 --self-contained true -p:PublishDir=./publish
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
